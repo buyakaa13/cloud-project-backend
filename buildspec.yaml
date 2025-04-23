@@ -1,0 +1,13 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - echo "Pre build command"
+  build:
+    commands:
+      - echo "Zipping files for Lambda..."
+      - zip -r lambda-function.zip * # Zips all files (node_modules included)
+      # - aws s3 cp lambda-function.zip s3://your-bucket/lambda_functions/lambda-function.zip
+      # - aws lambda update-function-code --function-name TestLambda --s3-bucket your-bucket --s3-key lambda_functions/Test-Lambda/Test.zip
+      - aws lambda update-function-code --function-name AddProduct --zip-file fileb://lambda-function.zip
